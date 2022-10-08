@@ -15,6 +15,8 @@ import GetId from './components/GetId';
 import GetPInfo from './components/GetPInfo';
 import GetMInfo from './components/GetMInfo';
 import LabApproval from './page/LabApproval';
+import HealthReport from './components/HealthReport';
+import HospApproval from './page/HospApproval';
 function App() {
 
   return (
@@ -47,6 +49,11 @@ function App() {
     <Route
     path="/patient/approveLab"
     element={<LabApproval/>}
+    />
+
+    <Route
+    path="/patient/approveHospital"
+    element={<HospApproval/>}
     
     />
     <Route
@@ -86,6 +93,10 @@ function App() {
     <Route
     path="/GMINfo"
     element={<GetMInfo/>}
+    />
+    <Route
+    path="/healthReport"
+    element={<HealthReport/>}
     />
 
 </Routes>

@@ -3,7 +3,7 @@ pragma solidity ^0.8;
 import "../contracts/permission.sol";
 import "../contracts/updateReport.sol";
 
-contract base is permission{
+contract base is permission,updateReport{
 
     // sets the owner of the network
     string id_hash;

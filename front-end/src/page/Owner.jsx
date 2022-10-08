@@ -28,7 +28,7 @@ const Owner = () => {
           setAccount('')
           setCategory('')
         }
-    }
+    } 
   return (
     <>
       <form className="create" onSubmit={handleSubmit}> 

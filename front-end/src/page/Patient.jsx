@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useState } from 'react';
 
 const Patient = () => {
+  
     const [flag , setFlag] = useState(false)
     const [total,setTotal] = useState("");
     const [positive , setPositive] = useState("");
@@ -45,6 +46,9 @@ const Patient = () => {
     const approveLab = () =>{
       navigate('/patient/approveLab')
     }
+    const approveHospital = () =>{
+      navigate('/patient/approveHospital')
+    }
     
     const remove = () =>{
         navigate('/patient/remove');
@@ -53,15 +57,19 @@ const Patient = () => {
     const getMedInfo = ()=>{
         navigate('/getMedInfo')
     }
+
+    const getStatus = ()=>{
+      navigate('/healthReport');
+    }
     
   return (
     <>
       <h1>Patients</h1>
       <button style={mystyle} onClick={pInfoHandler}>Add personal Info</button>
-      <button style={mystyle} onClick={approve}>Approve Lab/Hospital</button>
-      <button style={mystyle} onClick={approveLab}>Approve Lab</button>
+      <button style={mystyle} onClick={approveHospital}>Approve/Remove Hospital</button>
+      <button style={mystyle} onClick={approveLab}>Approve/Remove Lab</button>
       <button style={mystyle} onClick={remove}>Remove Lab/Hospital</button>
-      <button style={mystyle} onClick={checkStatus}>Check Health Status</button>
+      <button style={mystyle} onClick={getStatus}>Check Health Status</button>
       <button style={mystyle} onClick={getMedInfo}>Medical Record</button>
         {
             flag && 
