@@ -20,7 +20,7 @@ contract updateReport is details{
         uint256 last = record[_patientAddress].totalRecord;
         last += 1;
         record[_patientAddress].medicalInfoHash[last].cid = _mHash;
-        record[_patientAddress].totalRecord += last;
+        record[_patientAddress].totalRecord = last;
     }
     // patient or doctors at approved insti can see a patient medical info
     function getMedInfoHash(string memory _id,uint256 _reportId)

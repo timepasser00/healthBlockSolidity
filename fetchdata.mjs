@@ -11,7 +11,7 @@ import { create } from 'ipfs-http-client';
 
 
 export const uploadfile = async(data)=>{
-    const client = create(new URL('http://127.0.0.1:5002'))
+    const client = create(new URL('http://127.0.0.1:5001'))
     // const client = create()
     const result = await client.add(data);
     // console.log("from function :" + result.cid);
@@ -20,7 +20,7 @@ export const uploadfile = async(data)=>{
 }
 
 export const getFile = async(cid) =>{
-    const client = create(new URL('http://127.0.0.1:5002'))
+    const client = create(new URL('http://127.0.0.1:5001'))
     const bytes = [];
     for await (const chunk of client.cat(cid)){
         bytes.push(chunk);
