@@ -17,6 +17,7 @@ import GetMInfo from './components/GetMInfo';
 import LabApproval from './page/LabApproval';
 import HealthReport from './components/HealthReport';
 import HospApproval from './page/HospApproval';
+import AppreveDoctor from './page/ApproveDoctor';
 function App() {
 
   return (
@@ -97,6 +98,10 @@ function App() {
     <Route
     path="/healthReport"
     element={<HealthReport/>}
+    />
+     <Route
+    path="/patient/approveDoctor"
+    element={<AppreveDoctor/>}
     />
 
 </Routes>
