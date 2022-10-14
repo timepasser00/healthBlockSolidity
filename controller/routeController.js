@@ -7,7 +7,7 @@ const localhost = "http://127.0.0.1:9545";
 const web3 = new Web3(localhost);
 const provider = new Web3.providers.HttpProvider(localhost);
 
-const contract_address = '0x608180F29aE15fbc88d5147364148d551Df41976'
+const contract_address = '0x272364D1d602cf4b5D1198DFED21D365a62C0B08'
 const base = contract(contract_data);
 base.setProvider(provider);
 
@@ -21,6 +21,18 @@ const labCnt = async(req,res)=>{
         const instance = await base.at(contract_address);
         const lCnt = await instance.labCnt();
         res.send(lCnt); 
+    }catch(error){
+        res.send("Invalid Request");
+        console.log("This is error message : " + error);
+
+    }
+}
+
+const doctorCnt = async(req,res)=>{
+    try{
+        const instance = await base.at(contract_address);
+        const doctorCnt = await instance.doctorCnt();
+        res.send(doctorCnt); 
     }catch(error){
         res.send("Invalid Request");
         console.log("This is error message : " + error);
@@ -159,7 +171,7 @@ const reffer = async(req,res)=>{
         const curr =  JSON.parse(details);
         // console.log("curr: "+ curr.account , currentUserAccount[0]);    
         const instance = await base.at(contract_address);
-        await instance.reffer(curr.id,curr.pId,curr.rId,{from:currentUserAccount[0]})
+        await instance.reffer(curr.docId,curr.account,curr.rId,{from:currentUserAccount[0]})
         console.log("Reffered by a doctor");
         res.send("Action Successful");
     }catch(error){
@@ -177,8 +189,8 @@ const approveRefferedDoctor = async(req,res)=>{
         const curr =  JSON.parse(details);
         // console.log("curr: "+ curr.account , currentUserAccount[0]);    
         const instance = await base.at(contract_address);
-        await instance.approveRefferedDoctor(curr.id,curr.rId,{from:currentUserAccount[0]})
-        console.log("Reffered by a doctor");
+        await instance.approveRefferedDoctor(curr.docId,curr.rId,{from:currentUserAccount[0]})
+        console.log("Approved reffered doctor");
         res.send("Action Successful");
     }catch(error){
         res.send("Invalid Request");
@@ -373,5 +385,6 @@ module.exports={setPInfo,
     medRecordCnt,
     patientCnt,
     reffer,
-    approveRefferedDoctor
+    approveRefferedDoctor,
+    doctorCnt
 }
