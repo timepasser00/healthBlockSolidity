@@ -15,7 +15,10 @@ const GetMInfo = (props) => {
     const [rId , setrId] = useState(0);
     const [flag3 , setFlag3] = useState(false);
     const [flag4 , setFlag4] = useState(false);
+    const [docCount, setDocCount] = useState(0);
+    const [docId,setDocId]=useState("");
     let cntArr = [];
+    let docArr=[];
     // let rcntArr = [];
     const [rcntArr , setrcntArr] = useState([])
     useEffect( () => {
@@ -33,13 +36,48 @@ const GetMInfo = (props) => {
         }
       };
       patientCnt();
+      const getDocCount = async () => {
+        try {
+          const response = await fetch("http://localhost:3001/doctorCnt", {
+            method: "POST",
+          });
+          const actualOp = await response.text();
+          setDocCount(parseInt(actualOp.substring(1, actualOp.length - 1)));
+        } catch (error) {
+          console.log("some Error!!");
+        }
+      };
+      getDocCount();
       // console.log(cntArr);
-    }, [cnt,rcnt]);
+    }, [cnt,rcnt.toFixed,docCount]);
     
     for (let i = 1; i <= cnt; i++) {
       cntArr.push({ value: `p${i}`, label: `p${i}` });
     }
-    
+    for(let i=1;i<=docCount;i++){
+      docArr.push({value:`d${i}`,label:`d${i}`});
+    }
+
+    const referr=async(e)=>{
+      e.preventDefault();
+      const curr_account={docId,rId,account};
+  
+   const response = await fetch('http://localhost:3001/reffer', {
+            method: 'POST',
+            body: JSON.stringify(curr_account),
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          })
+          const txt = await response.text();
+          setMsg(txt);
+          setFlag2(true);
+          if (response.ok) {
+            // setStatus();
+           
+          }
+
+    }
     const recordCnt = async (e) => {
       e.preventDefault();
       try {
@@ -182,7 +220,7 @@ const GetMInfo = (props) => {
             </select>
             <button>Submit</button>
             <br></br>
-            <button onClick={rexam}>Rexam</button>
+            {/* <button onClick={rexam}>Rexam</button> */}
             {
               flag4 && <>
                   <select name="type" onChange={(e) => setStatus(e.target.value)} 
@@ -192,12 +230,47 @@ const GetMInfo = (props) => {
                 <option value="false">Negative</option>
             </select>
             <button>Submit</button>
+
+            
               </>
             }
             </form>
             </>
+            
 
             
+        }
+        {
+          flag &&<>
+          <form className="create" onSubmit={referr}>
+        <label> Record Id : </label>
+          <select
+            name="type"
+
+            onChange={(e) => setrId(e.target.value)}
+            value={rId}
+          >
+            <option value="">select record id</option>
+            {rcntArr.map(({ value, label }) => (
+              <option key = {value} value={value}>{label}</option>
+            ))}
+          </select>
+          <label> Doctor Id : </label>
+          <select
+            name="type"
+
+            onChange={(e) => setDocId(e.target.value)}
+            value={docId}
+          >
+            <option value="">select doctor id</option>
+            {docArr.map(({ value, label }) => (
+              <option key = {value} value={value}>{label}</option>
+            ))}
+          </select>
+          <button>Submit</button>
+        </form>
+
+          </>
         }
         {
             flag2 && 
