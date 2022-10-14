@@ -61,6 +61,9 @@ const Patient = () => {
     const getStatus = ()=>{
       navigate('/healthReport');
     }
+    const approveDoctor =() =>{
+      navigate('/patient/approveDoctor');
+    }
     
   return (
     <>
@@ -71,6 +74,7 @@ const Patient = () => {
       <button style={mystyle} onClick={remove}>Remove Lab/Hospital</button>
       <button style={mystyle} onClick={getStatus}>Check Health Status</button>
       <button style={mystyle} onClick={getMedInfo}>Medical Record</button>
+      <button style={mystyle} onClick={approveDoctor}>Approve Referred Doctor</button>
         {
             flag && 
             <>
